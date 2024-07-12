@@ -1,10 +1,7 @@
-import socket
 import sys
-import threading
-import time
 import mysql.connector
 
-client_list = []
+
 db_conn = None
 
  
@@ -29,7 +26,7 @@ def db_init(db_host, db_port, db_user, db_password):
 
 #### Database  Functionality ####
 def db_create_database(db_name):
-    query="CREATE DATABASE "+ db_name
+    query="CREATE DATABASE IF NOT EXISTS  "+ db_name
     print(query)
     db_conn.cursor().execute(query)
 
@@ -55,3 +52,29 @@ def db_use_database(db_name):
     query="USE  "+ db_name
     print(query)
     db_conn.cursor().execute(query)
+
+#create table abc (field1 int,field2 int);
+
+def db_create_table(db_name,table_name,column_count,column_list):   
+    print("db_create_table() Entry")
+    for i in range (column_count):
+        t=column_list[i]
+        print(t["column_name"])
+        print(t["column_data_type"])
+    db_use_database(db_name)
+
+    query="CREATE TABLE IF NOT EXISTS " + table_name + "  ("
+    
+    for i in range (column_count):
+        t=column_list[i]
+        query=query + t["column_name"]
+        query=query +  " " + t["column_data_type"] 
+        if( i != column_count -1):
+            query = query + " , "   
+
+    query = query + " ) "
+
+    print(query)
+
+    db_conn.cursor().execute(query)
+
