@@ -77,6 +77,22 @@ def test_db_create_table(db_name , table_name):
 
 
 
+def test_db_create_table_entry(db_name , table_name):  
+ 
+    print('Testing  db_create_table_entry()')
+    test_db_create_table(db_name , table_name)
+    #status, c1 = DB.db_init(config.database_ip,config.database_port,config.database_userid,config.database_password)
+    column_count=2
+    column_list=[]
+    c={"column_name":"Id ",
+       "value":2}
+    column_list.append(c)
+    c={"column_name":"Name",
+       "value":"prahi2"} 
+    column_list.append(c)
+
+    DB.db_create_table_entry(db_name,table_name,column_count,column_list)
+
 
 
 if __name__ == '__main__':
@@ -101,6 +117,9 @@ if __name__ == '__main__':
 
     elif(testcase_id == 4):
         test_db_create_table(sys.argv[2] , sys.argv[3])
+
+    elif(testcase_id == 5):
+        test_db_create_table_entry(sys.argv[2] , sys.argv[3])
 
 
 
