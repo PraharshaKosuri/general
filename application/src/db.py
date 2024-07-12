@@ -80,6 +80,7 @@ def db_create_table(db_name,table_name,column_count,column_list):
 
     ### Query Execution
     db_conn.cursor().execute(query)
+    print("db_create_table() Exit")
 
 def db_is_table_present(db_name , table_name):
     db_use_database(db_name)
@@ -96,4 +97,51 @@ def db_is_table_present(db_name , table_name):
     return 'NOT_OK'
 
 
+#insert into TABLENAME (Id,Name) values(1,"srilu") 
+def db_create_table_entry(db_name,table_name,column_count,column_list):
+  
+    print("db_create_table_entry() Entry")
+    
+    ### Argument checking 
+    for i in range (column_count):
+        t=column_list[i]
+        print(t["column_name"])
+        print(t["value"])
 
+    db_use_database(db_name)
+
+    ### Query preparation 
+    query="INSERT INTO " + table_name + " ("
+    
+    #### Fill columns 
+    for i in range (column_count):
+        t=column_list[i]
+        query=query + t["column_name"]
+        
+        if( i != column_count -1):
+            query = query + ","
+
+    query = query + ")"
+
+    #### Fill column  values 
+    query = query +  " values("
+
+    for j in range (column_count):
+        t=column_list[j]
+        print(t["value"])
+        query=query +'\"'+ str(t["value"]) +'\"'
+        if( j != column_count -1):
+            query = query + ", "
+    query = query + ")"
+    
+    
+    db_use_database(db_name)
+ 
+    print(query)
+
+    ### Query Execution
+    db_conn.cursor().execute(query)
+    db_conn.commit()  # This is Needed 
+
+    print("db_create_table_entry() Exit")
+ 
