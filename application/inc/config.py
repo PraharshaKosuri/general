@@ -4,3 +4,7 @@ database_ip="127.0.0.1"
 database_port=3306
 database_userid="root"
 database_password="MYSQL"
+
+###Config Params For TCP SERVER
+server_ip="127.0.0.1"
+server_port="5000"
