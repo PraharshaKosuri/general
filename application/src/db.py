@@ -145,3 +145,21 @@ def db_create_table_entry(db_name,table_name,column_count,column_list):
 
     print("db_create_table_entry() Exit")
  
+
+
+def db_get_full_entry(db_name,table_name,col_name,col_value):  
+#Select * from TABLENAME where fielname = "value";
+    db_list=[]
+    if (db_is_table_present(db_name , table_name)):
+        query="Select * from "+ table_name + " where " + col_name + " = " + "\"" + col_value + "\""
+        print(query)
+        #db_conn.cursor().execute(query)
+        with db_conn.cursor() as cursor:
+            cursor.execute(query)
+            for db in cursor:
+                db_list.append(db)
+                #print(db)
+        #print(db_list)
+        return db_list
+
+ 
