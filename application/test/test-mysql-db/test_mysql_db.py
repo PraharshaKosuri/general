@@ -55,6 +55,7 @@ def test_db_create_table(db_name , table_name):
     print('Testing  db_create_table()')
 
     status, c1 = DB.db_init(config.database_ip,config.database_port,config.database_userid,config.database_password)
+    DB.db_create_database(db_name)
 
     column_count=2
     column_list=[]
@@ -62,9 +63,20 @@ def test_db_create_table(db_name , table_name):
        "column_data_type":"INT"}
     column_list.append(c)
     c={"column_name":"Name",
-       "column_data_type":"VARCHAR(20)"}#VARCHAR is character array type for sql 20 indicates length of array
+       "column_data_type":"VARCHAR(20)"} #VARCHAR is character array type for sql 20 indicates length of array
     column_list.append(c)
+
+
+
     DB.db_create_table(db_name,table_name,column_count,column_list)
+    result = DB.db_is_table_present(db_name , table_name)
+    if ( result == 'OK'):
+        print('PASS')
+    else:
+        print('FAIL')
+
+
+
 
 
 if __name__ == '__main__':
@@ -89,6 +101,7 @@ if __name__ == '__main__':
 
     elif(testcase_id == 4):
         test_db_create_table(sys.argv[2] , sys.argv[3])
+
 
 
 
