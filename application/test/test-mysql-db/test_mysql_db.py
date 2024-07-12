@@ -95,6 +95,17 @@ def test_db_create_table_entry(db_name , table_name):
 
 
 
+def test_db_get_full_entry(db_name , table_name,col_name,col_value):  
+ 
+    print('Testing  db_get_full_entry()')
+    status, c1 = DB.db_init(config.database_ip,config.database_port,config.database_userid,config.database_password)
+
+    entry_list=DB.db_get_full_entry(db_name,table_name,col_name,col_value)
+    for i in range(len(entry_list)):
+        print(entry_list[i])
+
+
+
 if __name__ == '__main__':
     testcase_id  = int(sys.argv[1])
 
@@ -120,6 +131,11 @@ if __name__ == '__main__':
 
     elif(testcase_id == 5):
         test_db_create_table_entry(sys.argv[2] , sys.argv[3])
+
+    elif(testcase_id == 6):
+        test_db_get_full_entry(sys.argv[2] , sys.argv[3] , sys.argv[4] , sys.argv[5])
+
+    
 
 
 
